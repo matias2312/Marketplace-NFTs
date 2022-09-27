@@ -102,7 +102,7 @@ public class ClientController {
         Client client = clientService.getClientById(id);
         client.setVerified(true);
         clientService.saveClient(client);
-        return new RedirectView("/web/Structure/register.html");
+        return new RedirectView("https://ecommers-nfts.herokuapp.com/web/Structure/register.html");
     }
 
     @PostMapping("/clients/current/endPurchase")
