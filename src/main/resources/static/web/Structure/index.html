@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Assets/Images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../Assets/Styles/main.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>Artics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body class="gradient-background">
+    <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div> -->
+
+
+    <div id="app" @scroll.passive="onScroll">
+
+        <!-- <video src="../Assets/Images/Loop - 43661.mp4" muted autoplay loop></video> -->
+        <header class="sticky-top">
+            <nav class="navbar navbar-expand-lg navbarColor p-3">
+                <div class="container-fluid navBardHeader align-items-center">
+                    <h1 class="animate__animated animate__bounceInLeft">
+                        <a style="font-family: Nominee3; font-size: 3rem;" class="navbar-brand color mx-5 tituloquerie"
+                            href="./index.html">Artics</a>
+                    </h1>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                        aria-labelledby="offcanvasDarkNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title color" id="offcanvasDarkNavbarLabel"><a href="#">Artics
+                                </a></h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-around flex-grow-1 pe-3 w-100">
+                                <div class="d-flex flex-row justify-content-center mx-5 w-75 flex-sm-column flex-md-column flex-lg-row fs-5 animate__animated animate__bounceInDown"
+                                    id="querienav">
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1 navLinkHeader p1 navactivo">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1 navLinkHeader" href="./explore.html">
+                                            Explore</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1  navLinkHeader" href="./createNft.html">
+                                            Create</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1  navLinkHeader" href="./shopping.html">
+                                            Shopping</a>
+                                    </li>
+                                    <li class="nav-item dropdown m-1 navLinkHeader">
+                                        <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Profile
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                            <li><a class="dropdown-item navLinkHeader p1 navactivo"
+                                                    href="./profile.html#profile">
+                                                    Profile</a></li>
+                                            <li><a class="dropdown-item navLinkHeader"
+                                                    href="./profile.html#collections">
+                                                    Collections</a></li>
+                                            <li><a class="dropdown-item navLinkHeader"
+                                                    href="./profile.html#created">
+                                                    Created</a></li>
+                                            <li><a class="dropdown-item navLinkHeader"
+                                                    href="./profile.html#favorites">
+                                                    Favorites</a></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="d-flex flex-row justify-content-end w-25 flex-sm-column flex-md-column flex-lg-row gap-3 animate__animated animate__bounceInRight"
+                                    id="querienav">
+                                  <!--   <li v-show="!this.logged" class="nav-item">
+                                        <a href="../Structure/register.html" class="text-decoration-none"><button
+                                                type="button"
+                                                class="btn text-white rounded-pill bg-transparent m-2 buttonExplore border-0 w-100"
+                                                id="registerlogin">Register</button></a>
+                                    </li> -->
+
+                                    <li class="nav-item" v-show="!this.clientRegister">
+                                        <a href="../Structure/register.html" class="text-decoration-none"><button
+                                                type="button"
+                                                class="btn btn-light text-white rounded-pill bg-transparent m-2 w-100"
+                                                id="registerlogin">Log
+                                                In</button></a>
+                                    </li>
+                                    <li class="nav-item" v-show="this.clientRegister">
+                                               <button
+                                                type="button"
+                                                class="btn btn-light text-white rounded-pill bg-transparent m-2 w-100"
+                                                id="registerlogin" @click="logOut()">Log Out</button></a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="mb-5">
+            <div class="d-flex flex-column">
+                <!-- Padre -->
+                <div class="w-100 text-white d-flex justify-content-center flex-column flex-lg-row flex-lg-wrap">
+                    <!-- 1 -->
+                    <div
+                        class="d-flex flex-column justify-content-center mt-5 contenedor1 animate__animated animate__bounceInLeft">
+                        <h2 class="text-center p-3 text-white">Discover, collect, and sell extraordinary NFTs</h2>
+                        <h6 class="text-center fs-3 font2 text-white p-2">Artics Gallery is the world's first and
+                            largest NFT
+                            marketplace</h6>
+                        <div class="d-flex justify-content-center gap-5 mt-5">
+                            <a href="./explore.html" class="text-decoration-none"><button type="button"
+                                    class="btn  text-white btnquerie buttonExplore rounded-pill">Explore</button></a>
+                            <a href="./createNft.html" class="text-decoration-none"><button type="button"
+                                    class="btn btn-light text-white btnquerie rounded-pill bg-transparent">Create</button></a>
+                        </div>
+                    </div>
+                    <div class="mt-5 d-flex justify-content-center contenedor2">
+                        <div class="animate__animated animate__bounceInRight">
+                            <img class="container__image image1" src="../Assets/Images/mundovioleta.png">
+                            <img class="container__image image2" src="../Assets/Images/nft-gold.png">
+                            <img class="container__image image3" src="../Assets/Images/samuraired.png">
+
+                            <div class="carousel__dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <!-- <div class="card d-flex justify-content-center bg-dark cardprincipal" style="width:18rem;">
+                            <img src="https://i.ibb.co/2FGw8Fc/Erkan-Erdil-male-warrior-with-huge-katana-fighting-hordes-of-en-02ca9519-3e0d-4aa5-9d70-f16ef0b0a0ff.png"
+                                class="card-img-top" alt="..." />
+                            <div class="card-body d-flex flex-row aling-items-center gap-4 bg-dark">
+                                <div class="mt-2 ">
+                                    <img class="rounded-circle circulocard"
+                                        src="https://i.seadn.io/gae/6I3ubH_YUJ11z5yuG32r64zr0O3eKfU-nV0H_uttY-YKzF7dYurcjBt32DzLY32E-EIhmJmnPbcGKfh0x2AiUIG5_Ol7JhckTpIhuA?auto=format&dpr=1&w=70&h=70"
+                                        alt="">
+                                </div>
+                                <div> 
+                                    <h6 class="text-white font2">Shadient Grids #4</h6>
+                                    <a href="" class="font2">Samurai-Colection</a>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                        <i class="bi bi-info-circle"></i>
+                                    </button>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content bg-dark">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Get
+                                                        featured on the home page</h5>
+                                                    <button type="button" class="btn text-white"
+                                                        data-bs-dismiss="modal"><i class="bi bi-x-lg"></i></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ol>
+                                                        <li><span class="text-primary">Create </span>your NFT on Artics
+                                                            Gallery
+                                                        </li>
+                                                        <li><span class="text-primary">Post </span>a link to your NFT on
+                                                            Twitter or Instagram</li>
+                                                        <li><span class="text-primary">Include</span>@ArticsGallery in
+                                                            your
+                                                            post</li>
+                                                        <li>We'll periodically review these NFTs and select on to
+                                                            feature</li>
+                                                    </ol>
+                                                    <p>Be sure to follow us on Twitter and Instagram to receive updates
+                                                        on our featured NFT's</p>
+                                                </div>
+                                                <div class="modal-footer justify-content-center">
+                                                    <a href="https://twitter.com/"><button
+                                                            class="btn btn-primary text-white"><i
+                                                                class="bi bi-twitter"></i> Twitter</button></a>
+                                                    <a href="https://www.instagram.com/"><button
+                                                            class="btn btn-primary text-white"><i
+                                                                class="bi bi-instagram"></i> Instagram</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div
+                        class="gap-3 d-flex flex-row justify-content-center aling-items-center text-center mt-5 mb-5 p-3 contenedor3 animate__animated animate__bounceInUp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-play-circle-fill text-primary" viewBox="0 0 16 16">
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+                        </svg>
+                        <a href="#faq" class="fs-4 text-decoration-none">Learn more about Artics</a>
+                    </div>
+                </div>
+                <div class="justify-content-center justify-content-lg-center contenedor4"
+                    style="border-top: 1px solid #F2F2F2;">
+                    <!--2-->
+                    <h1 class="text-center text-white mt-5 mb-5 w-100 animate__animated animate__bounceInRight">
+                        Collections Featured</h1>
+                    <div class="mb-5 mt-5 carouseles justify-content-center animate__animated animate__bounceInRight">
+                        <h3 class="text-center text-white w-100">Monkeys</h3>
+                        <div class="d-flex justify-content-center">
+                            <div id="carouselExampleDark"
+                                class="carousel carousel-dark slide w-75 d-flex justify-content-center"
+                                data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
+                                        class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" data-bs-interval="2000">
+                                        <img src="https://img.seadn.io/files/7ae3682407d53edc1906b7e61f8ae392.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <img src="https://img.seadn.io/files/e129a8635a10c665c35e473d2fb8554e.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://img.seadn.io/files/8c901fd416df7a11ba33d8b012afb26f.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-5 carouseles animate__animated animate__bounceInRight">
+                        <h3 class="text-center text-white">LetsWalk</h3>
+                        <div class="d-flex justify-content-center">
+                            <div id="LetsWalk" class="carousel carousel-dark slide w-75 " data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#LetsWalk" data-bs-slide-to="0" class="active"
+                                        aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#LetsWalk" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#LetsWalk" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner text-white">
+                                    <div class="carousel-item active" data-bs-interval="2000">
+                                        <img src="https://i.seadn.io/gae/uuRcDiGGuD6zxFvQJulU49wVI0w8NbY3S-7UyldUTivpoEl6UqPv5jQVaY4kuK8zZiTJ0oHdv8nBin7SqqPx9OF3ImTgkGa6q9K8YtQ?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <img src="https://i.seadn.io/gae/1mQUrkPxypkXSACw_CN3AgHDKxvA7a4o9O19cSZXNe2di_eAookRwFi4NVgAZQH-7vRKR7W2NAgzpEJC4vSZ_hSnY6JGjDSvqAdm?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://i.seadn.io/gae/66KhtYB1pPTTOiaITA2Eu56NVOUDbSqWPiZ6z173kNzyxSS6SIHaiz_f1EiWPxyV8t-J9i_LxYp90UPREwqWTm6WqwwyGrEStfRWdg?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-5 carouseles animate__animated animate__bounceInRight">
+                        <h3 class="text-center text-white">BVDCATs</h3>
+                        <div class="d-flex justify-content-center">
+                            <div id="BVDCATs" class="carousel carousel-dark slide w-75" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#BVDCATs" data-bs-slide-to="0" class="active"
+                                        aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#BVDCATs" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#BVDCATs" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" data-bs-interval="10000">
+                                        <img src="https://i.seadn.io/gae/zvm0Gx2TWAxb9xk2bc1kAzEV-6GE8KW4ZWE6IiDK5XaoLMQsuZeeeomnXbs0PAInfgO6xxjszJ-n53WEoQ57wQhs1w96awnEQIqX?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <img src="https://i.seadn.io/gae/oqc4xDrjVRt7rVCTLuFo83xIAWuWA76ukWpRHzCjhnQ-kI__9S9vSA1yF1iW6yQeylgjLJftxRjm3e0vgerS3A9YGdH7U4cnNpyQlyQ?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://i.seadn.io/gae/M3k7dhpF3Vuj_2uEId4yC1Br37O7CQPEoGiGLWaLmr3BYB6OB8C4dHD-3bcLtdQCjy-0hjqpocd33yjwGbU3T58Hf3FB4TKm67HG?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-5 carouseles animate__animated animate__bounceInLeft">
+                        <h3 class="text-center text-white">Mutant Ape Yacht Club</h3>
+                        <div class="d-flex justify-content-center">
+                            <div id="Mutant" class="carousel carousel-dark slide w-75 " data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#Mutant" data-bs-slide-to="0" class="active"
+                                        aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#Mutant" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#Mutant" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" data-bs-interval="10000">
+                                        <img src="https://img.seadn.io/files/ee0073b9813b4ce210c0e58e1015a2f6.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <img src="https://img.seadn.io/files/e11bc1986bde6a6cc9bb63114ebe1f88.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://img.seadn.io/files/2bd0c25018548e8e1cf4f65c107b4a99.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-5 carouseles animate__animated animate__bounceInLeft">
+                        <h3 class="text-center text-white">UkiyoNFT</h3>
+                        <div class="d-flex justify-content-center">
+                            <div id="UkiyoNFT" class="carousel carousel-dark slide w-75" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#UkiyoNFT" data-bs-slide-to="0"
+                                        class="active rounded-circle" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#UkiyoNFT" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#UkiyoNFT" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" data-bs-interval="2000">
+                                        <img src="https://lh3.googleusercontent.com/-hzIsLUeiE1ZZVSZmIiWLO88DCk0UZ7VVRk2fRODQSSnU4X9wksw2Z1V2qrp_JHEtA_9jyOX9JB5cDM_bprD0VGE_nmGc1Suo3Qu=w345"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <img src="https://i.seadn.io/gae/eu0kPVUdfNxoD1zvvq-HOcpD5-cUXwmWUwDh5G_8xOJJ14uPI9CunW_TctB3cWLMRSKCTIFGpH71IyjikH7mNqwpMIGp_mm5licpyQ?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://i.seadn.io/gae/85-qaWL5s_Q3vDvQa7FH7LPgkzg1CWIJ9l6p9xa6P-mmmSAAnSkb9uoAjtJ2ufMg6MLUdEioothb-S2Sq8yM57T4wjs2hkM2hDv2?auto=format&dpr=1&w=500"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-5 carouseles animate__animated animate__bounceInLeft">
+                        <h3 class="text-center text-white">Doge Club(DOGC)</h3>
+                        <div class="d-flex justify-content-center">
+                            <div id="Doge" class="carousel carousel-dark slide w-75" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#Doge" data-bs-slide-to="0" class="active"
+                                        aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#Doge" data-bs-slide-to="1"
+                                        aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#Doge" data-bs-slide-to="2"
+                                        aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active" data-bs-interval="10000">
+                                        <img src="https://img.seadn.io/files/79d883b954c6a0de2cc10d3319f46ee6.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="2000">
+                                        <img src="https://img.seadn.io/files/7a3afed2852204a08a09c84b566ecde6.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://img.seadn.io/files/88498a01b8c96275d6a0f1bbbc09466e.png?auto=format&fit=max&w=384"
+                                            class="d-block w-100 rounded" alt="...">
+                                        <div class="carousel-caption d-none d-md-block">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="border-top: 1px solid #F2F2F2;">
+                    <!-- 3 -->
+                    <h2 class="text-center text-white mt-5 mb-5 w-100 fs-1">Create and sell your NFTs</h2>
+                    <div class="d-flex justify-content-center flex-column flex-xl-row">
+                        <div class="d-flex justify-content-center aling-items-center flex-column mt-3 mb-3 p-4">
+                            <div class="d-flex justify-content-center mt-1 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                                    class="bi bi-wallet2 text-primary" viewBox="0 0 16 16">
+                                    <path
+                                        d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499L12.136.326zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484L5.562 3zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-center text-white">Set up your wallet</h3>
+                            <h6 class="text-center text-white p-2 font2 fs-5">Once you've set up your wallet of
+                                choice,
+                                connect it
+                                a Artics by clicking the wallet
+                                icon in the top right comer. Learn about the <a href="">wallets we support</a>.</h6>
+                        </div>
+                        <div class="d-flex justify-content-center aling-items-center flex-column mt-3 mb-3 p-4">
+                            <div class="d-flex justify-content-center mt-1 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                                    class="bi bi-ui-checks-grid text-primary" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2 10h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1zm9-9h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm0 9a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-3zm0-10a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2h-3zM2 9a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H2zm7 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2v-3zM0 2a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5.354.854a.5.5 0 1 0-.708-.708L3 3.793l-.646-.647a.5.5 0 1 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-center text-white">Create your collection</h3>
+                            <h6 class="text-center text-white p-2 font2 fs-5">Click <a href="">My Collections</a>
+                                and
+                                set up your
+                                collection. Add social links, a description, profile & banner images, and set a
+                                secondary sales fee.</h6>
+                        </div>
+                        <div class="d-flex justify-content-center aling-items-center flex-column mt-3 mb-3 p-4">
+                            <div class="d-flex justify-content-center mt-1 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                                    class="bi bi-qr-code text-primary" viewBox="0 0 16 16">
+                                    <path d="M2 2h2v2H2V2Z" />
+                                    <path d="M6 0v6H0V0h6ZM5 1H1v4h4V1ZM4 12H2v2h2v-2Z" />
+                                    <path d="M6 10v6H0v-6h6Zm-5 1v4h4v-4H1Zm11-9h2v2h-2V2Z" />
+                                    <path
+                                        d="M10 0v6h6V0h-6Zm5 1v4h-4V1h4ZM8 1V0h1v2H8v2H7V1h1Zm0 5V4h1v2H8ZM6 8V7h1V6h1v2h1V7h5v1h-4v1H7V8H6Zm0 0v1H2V8H1v1H0V7h3v1h3Zm10 1h-1V7h1v2Zm-1 0h-1v2h2v-1h-1V9Zm-4 0h2v1h-1v1h-1V9Zm2 3v-1h-1v1h-1v1H9v1h3v-2h1Zm0 0h3v1h-2v1h-1v-2Zm-4-1v1h1v-2H7v1h2Z" />
+                                    <path d="M7 12h1v3h4v1H7v-4Zm9 2v2h-3v-1h2v-1h1Z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-center text-white">Add your NFTs</h3>
+                            <h6 class="text-center text-white p-2 font2 fs-5">Upload your work (image,video,audio,
+                                or 3D
+                                art), add
+                                a title and description,and customize your NFTs with properties, stats, and
+                                unlockable
+                                content.</h6>
+                        </div>
+                        <div class="d-flex justify-content-center aling-items-center flex-column mt-3 mb-3 p-4">
+                            <div class="d-flex justify-content-center mt-1 mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                                    class="bi bi-card-checklist text-primary" viewBox="0 0 16 16">
+                                    <path
+                                        d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" />
+                                    <path
+                                        d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-center text-white">List them for sale</h3>
+                            <h6 class="text-center text-white p-2 font2 fs-5">Choose between auctions, fixed-price
+                                listings, and
+                                declining-price listings. You choose how you want to sell your NFTs, and we help you
+                                sell them.</h6>
+                        </div>
+                    </div>
+                </div>
+        </main>
+
+        <!-- FAQ -->
+        <div id="faq" class="mt-5 mb-5">
+            <div class="w-100 d-flex justify-content-center mt-5">
+                <h2 class="text-light fs-1 p-4">Frequently Asked Questions</h2>
+            </div>
+            <ul>
+                <div class="container pb-3">
+                    <div class="d-flex flex-column gap-3">
+                        <div class="col">
+                            <li class="rounded bg-primary">
+                                <input type="checkbox" checked>
+                                <i class="bi bi-arrow-down iFaq"></i>
+                                <h4 class="text-white p-3">What is a non-fungible token (NFT)?</h4>
+                                <p class="text-white font2">A non-fungible token <span class="text-dark">(NFT) </span>
+                                    is a cryptographic token that
+                                    represents a unique asset. They function as verifiable proofs of authenticity and
+                                    ownership within a blockchain network. NFTs are not interchangeable with each other
+                                    and introduce scarcity to the digital world.</p>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="rounded bg-primary">
+                                <input type="checkbox" checked>
+                                <i class="bi bi-arrow-down iFaq"></i>
+                                <h4 class="text-white p-3">How do I buy a NFT?</h4>
+                                <p class="text-white font2"> <span class="text-dark">Click the [Buy] button </span> on
+                                    the
+                                    product page and complete the transaction. Once the transaction is successful,
+                                    we will transfer the NFT to your wallet and the seller will receive the funds.</p>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="rounded bg-primary">
+                                <input type="checkbox" checked>
+                                <i class="bi bi-arrow-down iFaq"></i>
+                                <h4 class="text-white p-3">What is Artics Gallery Marketplace?</h4>
+                                <p class="text-white font2"> <span class="text-dark">Artics Gallery </span>
+                                    brings together artists, creators, and
+                                    crypto enthusiasts on a single platform to create and trade top NFTs. The platform
+                                    features 1 product lines:
+                                    <span class="text-dark">Marketplace: </span> Buy premium and exclusive NFTs created
+                                    by global leading artists.
+                                </p>
+                            </li>
+                        </div>
+                        <div class="col">
+                            <li class="rounded bg-primary">
+                                <input type="checkbox" checked>
+                                <i class="bi bi-arrow-down iFaq"></i>
+                                <h4 class="text-white p-3">How do I sell a NFT?</h4>
+                                <p class="text-white font2">To list an NFT for sale, you must follow these steps:
+                                    <span class="text-dark">Register</span>, you will receive confirmation by email,
+                                    <span class="text-dark">go to "create" </span> section, follow the
+                                    steps to create your NFT, upon successful approval, <span class="text-dark">your NFT
+                                        will immediately appear
+                                        on the Marketplace.</span>
+                                </p>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <!-- END FAQ -->
+    <!-- Explain Video -->
+    <div class="w-100 d-flex justify-content-center flex-column">
+        <div class="d-flex justify-content-center">
+            <h2 class="fs-1 text-white">What is an NFT?</h2>
+        </div>
+        <div class="d-flex justify-content-center">
+            <iframe width="1000" height="500" class="mb-5 rounded border-white border-1 " src="https://www.youtube.com/embed/OBPh52KUwCE" title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- SUBSCRIPTION Y REDES -->
+    <div class="suscribe">
+        <div class="col p-5">
+            <h3 class="text-center">Stay in contact</h3>
+            <p class="text-center">Join our mailing list to stay in the loop with our newest feature releases,
+                NFT drops, and tips
+                and tricks for navigating Arctics.</p>
+            <form class="d-flex flex-column flex-md-row justify-content-md-center aling-items-center gap-4  ">
+                <input class="p-2 text-center" type="email" placeholder="Your email address" id="email" size="20">
+                <button type="button" class="btn buttons btn-primary text-center">Subscribe</button>
+            </form>
+        </div>
+
+        <div class="col rounded-social-buttons p-2">
+            <h3>Join the community</h3>
+            <a class="social-button facebook m-2" href="https://www.facebook.com/" target="_blank"><i
+                    class="bi bi-facebook"></i></a>
+            <a class="social-button twitter m-2" href="https://www.twitter.com/" target="_blank"><i
+                    class="bi bi-twitter"></i></a>
+            <a class="social-button linkedin m-2" href="https://www.linkedin.com/" target="_blank"><i
+                    class="bi bi-linkedin"></i></i></a>
+            <a class="social-button youtube m-2" href="https://www.youtube.com/" target="_blank"><i
+                    class="bi bi-youtube"></i></a>
+            <a class="social-button instagram m-2" href="https://www.instagram.com/" target="_blank"><i
+                    class="bi bi-instagram"></i></a>
+            <a class="social-button bg-dark m-2" href="https://www.tiktok.com/" target="_blank"><i
+                    class="bi bi-tiktok"></i></a>
+            <a class="social-button bg-primary bg-gradient m-2" href="https://www.discord.com/" target="_blank"><i
+                    class="bi bi-discord"></i></a>
+        </div>
+    </div>
+    </div>
+
+    <!-- END SUSCRIPCION Y REDES -->
+
+    <!-- Start Footer -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="container p-4">
+                <div class="row gy-4">
+                    <div class="col-lg-5 col-md-12 footer-info">
+                        <a href="index.html" class="logo d-flex align-items-center text-white"><span id="contact"
+                                class="mb-3">Artics Gallery</span></a>
+                        <p>At Artics Gallery you can buy, sell and discover exclusive digital items.</p>
+                        <p class="mt-4"><i class="bi bi-envelope"></i> articsgallery@nft.com</p>
+                    </div>
+
+
+                    <div class="col-lg-2 col-6 footer-links">
+                        <h4 class="color">About Us</h4>
+                        <ul>
+                            <li><i class="bi bi-dash"></i> <a href="#">About</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Career</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Business Contact</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-2 col-6 footer-links">
+                        <h4 class="color">Our Services</h4>
+                        <ul>
+                            <li><i class="bi bi-dash"></i> <a href="#">Downloads</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Buy NFT</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Institutional & VIP Services</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Learn & Earn</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">APIs</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-12 footer-links">
+                        <h4 class="color">Support</h4>
+                        <ul>
+                            <li><i class="bi bi-dash"></i> <a href="#">Frequent Questions</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Help Center</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Write your review</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Learn & Earn</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">APIs</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright text-center p-2">
+            &copy; Copyright <strong><span class="color">ArticsGallery</span></strong>. All Rights Reserved
+        </div>
+    </footer><!-- End Footer -->
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+<!-- <script src="../Assets/Script/index.js"></script> -->
+<script src="../Assets/script/main.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</html>

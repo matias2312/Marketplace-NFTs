@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Assets/Images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="../Assets/Styles/main.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>Details</title>
+</head>
+
+<body class="gradient-background">
+
+    <div id="app" @scroll.passive="onScroll" v-cloak>
+        <header class="sticky-top">
+            <nav class="navbar navbar-expand-lg navbarColor p-3">
+                <div class="container-fluid navBardHeader align-items-center">
+                    <h1>
+                        <a style="font-family: Nominee3; font-size: 3rem;" class="navbar-brand color mx-5 tituloquerie"
+                            href="./index.html">Artics</a>
+                    </h1>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                        aria-labelledby="offcanvasDarkNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title color" id="offcanvasDarkNavbarLabel"><a
+                                    href="./index.html">Artics
+                                </a></h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-around flex-grow-1 pe-3 w-100">
+                                <div class="d-flex flex-row justify-content-center mx-5 w-75 flex-sm-column flex-md-column flex-lg-row fs-5 "
+                                    id="querienav">
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1 navLinkHeader" href="./index.html">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1 navLinkHeader" href="./explore.html">
+                                            Explore</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1  navLinkHeader" href="./createNft.html">
+                                            Create</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1  navLinkHeader" href="./shopping.html">
+                                            Shopping</a>
+                                    </li>
+                                    <li class="nav-item dropdown m-1 navLinkHeader">
+                                        <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Profile
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                            <li><a class="dropdown-item navLinkHeader p1 navactivo"
+                                                    href="./profile.html#profile">
+                                                    Profile</a></li>
+                                            <li><a class="dropdown-item navLinkHeader"
+                                                    href="./profile.html#profile#collections">
+                                                    Collections</a></li>
+                                            <li><a class="dropdown-item navLinkHeader"
+                                                    href="./profile.html#profile#created">
+                                                    Created</a></li>
+                                            <li><a class="dropdown-item navLinkHeader"
+                                                    href="./profile.html#profile#favorites">
+                                                    Favorites</a></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="d-flex flex-row justify-content-end w-25 flex-sm-column flex-md-column flex-lg-row gap-3"
+                                    id="querienav">
+                               <!--      <li v-show="!this.logged" class="nav-item">
+                                        <a href="../Structure/register.html" class="text-decoration-none"><button
+                                                type="button"
+                                                class="btn text-white rounded-pill bg-transparent m-2 buttonExplore border-0 w-100"
+                                                id="registerlogin">Register</button></a>
+                                    </li> -->
+
+                                    <li class="nav-item" v-show="!this.clientRegister">
+                                        <a href="../Structure/register.html" class="text-decoration-none"><button
+                                                type="button"
+                                                class="btn btn-light text-white rounded-pill bg-transparent m-2 w-100"
+                                                id="registerlogin">Log
+                                                In</button></a>
+                                    </li>
+                            <li class="nav-item" v-show="this.clientRegister">
+                                       <button
+                                        type="button"
+                                        class="btn btn-light text-white rounded-pill bg-transparent m-2 w-100"
+                                        id="registerlogin" @click="logOut()">Log Out</button></a>
+                            </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="d-flex flex-column">
+                <div class="d-flex justify-content-center">
+                    <!-- 1 -->
+                    <div class="card d-flex justify-content-center bg-dark cardprincipal" style="width:18rem;">
+                        <img :src="nftId.image" class="card-img-top" alt="" />
+                        <div class="card-body d-flex flex-row justify-content-evenly aling-items-center gap-3 bg-dark">
+                            <div class="d-flex flex-column justify-content-evenly align-items-center">
+                                <h6 class="text-white font2"><span class="text-warning">Name: </span> {{nftId.name}}
+                                </h6>
+                                <p class="font2 text-white"><span class="text-warning">Id:</span> #{{nftId.id}}</p>
+                            </div>
+                            <div class="mt-2">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    <i class="bi bi-info-circle"></i>
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content bg-dark">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-white" id="exampleModalLabel">Get
+                                                    featured on the home page</h5>
+                                                <button type="button" class="btn text-white" data-bs-dismiss="modal"><i
+                                                        class="bi bi-x-lg"></i></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <ol class="text-white">
+                                                    <li><span class="text-primary">Create </span>your NFT on Artics
+                                                        Gallery
+                                                    </li>
+                                                    <li><span class="text-primary">Post </span>a link to your NFT on
+                                                        Twitter or Instagram</li>
+                                                    <li><span class="text-primary">Include</span>@ArticsGallery in
+                                                        your
+                                                        post</li>
+                                                    <li>We'll periodically review these NFTs and select on to
+                                                        feature</li>
+                                                </ol>
+                                                <p>Be sure to follow us on Twitter and Instagram to receive updates
+                                                    on our featured NFT's</p>
+                                            </div>
+                                            <div class="modal-footer justify-content-center">
+                                                <a href="https://twitter.com/"><button
+                                                        class="btn btn-primary text-white"><i class="bi bi-twitter"></i>
+                                                        Twitter</button></a>
+                                                <a href="https://www.instagram.com/"><button
+                                                        class="btn btn-primary text-white"><i
+                                                            class="bi bi-instagram"></i> Instagram</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-5">
+                        <form action="" class="d-flex flex-column">
+                            <input type="text" v-model="description" placeholder="Description">
+                            <input type="number" v-model="price" placeholder="Price">
+                            <input type="radio" v-model="sell" placeholder="Sell" >
+                            <button type="btn button" @click="editProduct(nftId)">Edit product</button>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div class="text-white d-flex justify-content-start mx-4 flex-column mt-5">
+                    <!-- 2 -->
+                    <div class="d-flex flex-column justify-content-center w-100">
+                        <div class="d-flex justify-content-center w-100">
+                            <h3 class="">{{nftId.name}}</h3>
+                        </div>
+                    </div>
+                    <!-- FAQ -->
+                    <div id="faq" class="">
+                        <ul>
+                            <div class="container pb-3">
+                                <div class="d-flex flex-column gap-3 flex-md-row flex-md-wrap">
+                                    <div class="col">
+                                        <li class="rounded bg-primary background-details">
+                                            <input type="checkbox" checked>
+                                            <i class="bi bi-arrow-down iFaq"></i>
+                                            <div
+                                                class="d-flex flex-row mx-3 mt-2 gap-2 fuentedetails align-items-center">
+                                                <svg class="logodetails" xmlns="http://www.w3.org/2000/svg" width="20"
+                                                    height="23" fill="currentColor" class="bi bi-tag-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                                                </svg>
+                                                <h5 class="text-white fuentedetails"> Current price</h5>
+                                            </div>
+                                            <p class="text-white font2">Price: {{newBalance(nftId.price)}}</p>
+                                            <p class="text-white font2">Eth {{(nftId.price)/priceEth}}</p>
+                                            <p class="text-white font2">Btc {{(nftId.price)/priceBtc}}</p>
+                                        </li>
+                                    </div>
+                                    <div class="col">
+                                        <li class="rounded bg-primary background-details align-items-center">
+                                            <input type="checkbox" checked>
+                                            <i class="bi bi-arrow-down iFaq"></i>
+                                            <div class="d-flex flex-row mx-3 mt-2 gap-2 fuentedetails">
+                                                <svg class="logodetails" xmlns="http://www.w3.org/2000/svg" width="20"
+                                                    height="23" fill="currentColor" class="bi bi-list-columns-reverse"
+                                                    viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5Zm-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5Zm-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5Z" />
+                                                </svg>
+                                                <h5 class="text-white fuentedetails">Description</h5>
+                                            </div>
+                                            <p class="text-white font2">{{nftId.description}}
+                                            </p>
+                                        </li>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center w-100">
+                                        <button
+                                            class="btn text-white rounded-pill bg-transparent m-2 buttonExplore border-0 w-50 btnquerie">BUY</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                <!-- END FAQ -->
+            </div>
+    </div>
+    </main>
+    <div class="suscribe p-4">
+        <div class="p-4">
+            <div class="col rounded-social-buttons pt-2 p-2">
+                <h3>Join the community</h3>
+                <a class="social-button facebook m-2" href="https://www.facebook.com/" target="_blank"><i
+                        class="bi bi-facebook"></i></a>
+                <a class="social-button twitter m-2" href="https://www.twitter.com/" target="_blank"><i
+                        class="bi bi-twitter"></i></a>
+                <a class="social-button linkedin m-2" href="https://www.linkedin.com/" target="_blank"><i
+                        class="bi bi-linkedin"></i></i></a>
+                <a class="social-button youtube m-2" href="https://www.youtube.com/" target="_blank"><i
+                        class="bi bi-youtube"></i></a>
+                <a class="social-button instagram m-2" href="https://www.instagram.com/" target="_blank"><i
+                        class="bi bi-instagram"></i></a>
+                <a class="social-button bg-dark m-2" href="https://www.tiktok.com/" target="_blank"><i
+                        class="bi bi-tiktok"></i></a>
+                <a class="social-button bg-primary bg-gradient m-2" href="https://www.discord.com/" target="_blank"><i
+                        class="bi bi-discord"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- END SUSCRIPCION Y REDES -->
+
+    <!-- Start Footer -->
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="container p-4">
+                <div class="row gy-4">
+                    <div class="col-lg-5 col-md-12 footer-info">
+                        <a href="index.html" class="logo d-flex align-items-center"><span id="contact"
+                                class="mb-3">Artics Gallery</span></a>
+                        <p>At Artics Gallery you can buy, sell and discover exclusive digital items.</p>
+                        <p class="mt-4"><i class="bi bi-envelope"></i> articsgallery@nft.com</p>
+                    </div>
+
+
+                    <div class="col-lg-2 col-6 footer-links">
+                        <h4 class="color">About Us</h4>
+                        <ul>
+                            <li><i class="bi bi-dash"></i> <a href="#">About</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Career</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Business Contact</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-2 col-6 footer-links">
+                        <h4 class="color">Our Services</h4>
+                        <ul>
+                            <li><i class="bi bi-dash"></i> <a href="#">Downloads</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Buy NFT</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Institutional & VIP Services</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Learn & Earn</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">APIs</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-12 footer-links">
+                        <h4 class="color">Support</h4>
+                        <ul>
+                            <li><i class="bi bi-dash"></i> <a href="#">Frequent Questions</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Help Center</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Write your review</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">Learn & Earn</a></li>
+                            <li><i class="bi bi-dash"></i> <a href="#">APIs</a></li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright text-center p-2">
+            &copy; Copyright <strong><span class="color">ArticsGallery</span></strong>. All Rights Reserved
+        </div>
+    </footer><!-- End Footer -->
+    </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+<script src="../Assets/script/editProduct.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</html>

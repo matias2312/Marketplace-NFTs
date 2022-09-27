@@ -1,0 +1,320 @@
+<!-- Agregar boton para desloguearse -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Assets/Images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../Assets/Styles/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>Profile</title>
+</head>
+
+<body class="gradient-background">
+
+    <div id="app" @scroll.passive="onScroll" v-cloak>
+        <header class="sticky-top">
+            <nav class="navbar navbar-expand-lg navbarColor p-3">
+                <div class="container-fluid navBardHeader align-items-center">
+                    <h1>
+                        <a style="font-family: Nominee3; font-size: 3rem;" class="navbar-brand color mx-5 tituloquerie"
+                            href="./index.html">Artics</a>
+                    </h1>
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                        aria-labelledby="offcanvasDarkNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title color" id="offcanvasDarkNavbarLabel"><a
+                                    href="./index.html">Artics
+                                </a></h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-around flex-grow-1 pe-3 w-100">
+                                <div class="d-flex flex-row justify-content-center mx-5 w-75 flex-sm-column flex-md-column flex-lg-row fs-5 "
+                                    id="querienav">
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1 navLinkHeader" href="./index.html">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1 navLinkHeader" href="./explore.html">
+                                            Explore</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1  navLinkHeader" href="./createNft.html">
+                                            Create</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link m-1  navLinkHeader" href="./shopping.html">
+                                            Shopping</a>
+                                    </li>
+                                    <li class="nav-item dropdown m-1 navLinkHeader">
+                                        <a class="nav-link dropdown-toggle text-white" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Profile
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark">
+                                            <li><a class="dropdown-item navLinkHeader p1 navactivo" href="#profile">
+                                                    Profile</a></li>
+                                            <li><a class="dropdown-item navLinkHeader" href="#collections">
+                                                    Collections</a></li>
+                                            <li><a class="dropdown-item navLinkHeader" href="#created">
+                                                    Created</a></li>
+                                            <li><a class="dropdown-item navLinkHeader" href="#favorites">
+                                                    Favorites</a></li>
+
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="d-flex flex-row justify-content-end w-25 flex-sm-column flex-md-column flex-lg-row gap-3"
+                                    id="querienav">
+                                   <!--  <li v-show="!this.logged" class="nav-item">
+                                        <a href="../Structure/register.html" class="text-decoration-none"><button
+                                                type="button"
+                                                class="btn text-white rounded-pill bg-transparent m-2 buttonExplore border-0 w-100"
+                                                id="registerlogin">Register</button></a>
+                                    </li> -->
+                                    <li class="nav-item" v-show="!this.clientRegister">
+                                        <a href="../Structure/register.html" class="text-decoration-none"><button
+                                                type="button"
+                                                class="btn btn-light text-white rounded-pill bg-transparent m-2 w-100"
+                                                id="registerlogin">Log
+                                                In</button></a>
+                                    </li>
+                            <li class="nav-item" v-show="this.clientRegister">
+                                       <button
+                                        type="button"
+                                        class="btn btn-light text-white rounded-pill bg-transparent m-2 w-100"
+                                        id="registerlogin" @click="logOut()">Log Out</button></a>
+                            </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="profile">
+            <div class="divProfile">
+                <div class="d-flex flex-column flex-md-row inDivProfile divPayment">
+                    <div class="d-flex m-2 p-3 inDivProfile1">
+                        <img src="../Assets/Images/cat.png" alt="" class="imageProfile">
+                        <img src="../Assets/Images/ape.png" alt="" class="imageProfile">
+                    </div>
+                    <div class="d-flex flex-column m-2 p-3 inDivProfile2 justify-content-center">
+                        <h2 class="text-white fs-1 m-3">{{currentDateTime()}}, <span class="color">{{firstName}}
+                                {{lastName}}</span></h2>
+                        <h4 class="fw-bolder fs-4 text-white m-3">In your profile, you can</h4>
+                        <h5 class="font2 fs-4 fw-bolder text-white w-75 m-3">See your collections,see your creations,see
+                            your Favorites items,edit your articles,delete your items.</h5>
+                        <div class="d-flex flex-column p-4 m-3 bg-opacity-75 bg-dark rounded">
+                            <p class="fs-4"><span class="color">Email: </span> <span class="text-white"> {{email}}</span></p>
+                            <p class="fs-4"><span class="color"> Total balance: </span>
+                                <span class="text-white"> {{newBalance(balance)}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column m-2 p-2">
+
+                <div class="container divPayment containerCollections mt-3 p-2" id="collections">
+                    <h2 class="text-center color mt-4 fs-1">Collections</h2>
+                    <div class="containerNft">
+                        <div class="card justify-content-center bg-dark m-2 " style="width:15rem; height: 25rem;"
+                            v-for="card in nft">
+                            <div class="img-wrapper">
+                                <img :src="card.image" class="card-img-top inner-img" alt="..." />
+                            </div>
+                            <div
+                                class="card-body d-flex flex-column aling-items-center justify-content-center gap-4 bg-dark">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="text-white"># {{card.id}}</p>
+                                    <h6 class="text-white font2">{{card.name}}</h6>
+                                    <a :href="'./editProduct.html?id='+card.id">
+                                        <i class="bi bi-info-circle text-info"></i>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex flex-row aling-items-center justify-content-around gap-2">
+                                    <button class="btn btn-outline-warning" disabled>
+                                        {{newBalance(card.price)}}
+                                    </button>
+                                    <button class="btn " @click="deleteProduct(card)"><i
+                                            class="bi bi-trash3-fill text-danger"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container divPayment containerCreated mt-3 p-2" id="created">
+                    <h2 class="text-center color mt-4 fs-1">Created</h2>
+                    <div class="containerNft">
+                        <div class="card justify-content-center bg-dark m-2 " style="width:14rem; height: 25rem;"
+                            v-for="card in created">
+                            <div class="img-wrapper">
+                                <img :src="card.image" class="card-img-top inner-img" alt="..." />
+                            </div>
+                            <div
+                                class="card-body d-flex flex-column aling-items-center justify-content-center gap-4 bg-dark">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="text-white"># {{card.id}}</p>
+                                    <h6 class="text-white font2">{{card.name}}</h6>
+                                    <a :href="'./details.html?id='+card.id">
+                                        <i class="bi bi-info-circle text-info"></i>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex flex-row aling-items-center justify-content-around gap-2">
+
+                                    <button class="btn btn-outline-warning" disabled>
+                                        {{newBalance(card.price)}}
+                                    </button>
+
+                                    <button class="btn button" @click="deleteProduct(card)">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container divPayment containerFavorites mt-3 p-2" id="favorites">
+                    <h2 class="text-center color mt-4 fs-1">Favorites</h2>
+                    <div class="containerNft">
+                        <div class="card justify-content-center bg-dark m-2 " style="width:14rem; height: 25rem;"
+                            v-for="card in favoritesBag">
+                            <div class="img-wrapper">
+                                <img :src="card.image" class="card-img-top inner-img" alt="..." />
+                            </div>
+                            <div
+                                class="card-body d-flex flex-column aling-items-center justify-content-center gap-4 bg-dark">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <p class="text-white"># {{card.id}}</p>
+                                    <h6 class="text-white font2">{{card.name}}</h6>
+                                    <a :href="'./details.html?id='+card.id">
+                                        <i class="bi bi-info-circle text-info"></i>
+                                    </a>
+                                </div>
+
+                                <div class="d-flex flex-row aling-items-center justify-content-around">
+
+                                    <button class="btn btn-outline-warning" disabled>
+                                        {{newBalance(card.price)}}
+                                    </button>
+                                    <button class="btn button" @click="deleteProduct(card)">Delete</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="suscribe p-4">
+            <div class="p-4">
+
+                <div class="col rounded-social-buttons p-2">
+                    <h3>Join the community</h3>
+                    <a class="social-button facebook m-2" href="https://www.facebook.com/" target="_blank"><i
+                            class="bi bi-facebook"></i></a>
+                    <a class="social-button twitter m-2" href="https://www.twitter.com/" target="_blank"><i
+                            class="bi bi-twitter"></i></a>
+                    <a class="social-button linkedin m-2" href="https://www.linkedin.com/" target="_blank"><i
+                            class="bi bi-linkedin"></i></i></a>
+                    <a class="social-button youtube m-2" href="https://www.youtube.com/" target="_blank"><i
+                            class="bi bi-youtube"></i></a>
+                    <a class="social-button instagram m-2" href="https://www.instagram.com/" target="_blank"><i
+                            class="bi bi-instagram"></i></a>
+                    <a class="social-button bg-dark m-2" href="https://www.tiktok.com/" target="_blank"><i
+                            class="bi bi-tiktok"></i></a>
+                    <a class="social-button bg-primary bg-gradient m-2" href="https://www.discord.com/"
+                        target="_blank"><i class="bi bi-discord"></i></a>
+                </div>
+
+            </div>
+
+            <!-- END SUSCRIPCION Y REDES -->
+
+            <!-- Start Footer -->
+            <footer id="footer" class="footer">
+                <div class="footer-content">
+                    <div class="container p-4">
+                        <div class="row gy-4">
+                            <div class="col-lg-5 col-md-12 footer-info">
+                                <a href="index.html" class="logo d-flex align-items-center"><span id="contact"
+                                        class="color mb-3">Artics Gallery</span></a>
+                                <p>At Artics Gallery you can buy, sell and discover exclusive digital items.</p>
+                                <p class="mt-4"><i class="bi bi-envelope"></i> articsgallery@nft.com</p>
+                            </div>
+
+
+                            <div class="col-lg-2 col-6 footer-links">
+                                <h4 class="color">About Us</h4>
+                                <ul>
+                                    <li><i class="bi bi-dash"></i> <a href="#">About</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Career</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Business Contact</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Terms of service</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Privacy policy</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-2 col-6 footer-links">
+                                <h4 class="color">Our Services</h4>
+                                <ul>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Downloads</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Buy NFT</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Institutional & VIP Services</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Learn & Earn</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">APIs</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-lg-3 col-md-12 footer-links">
+                                <h4 class="color">Support</h4>
+                                <ul>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Frequent Questions</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Help Center</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Write your review</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">Learn & Earn</a></li>
+                                    <li><i class="bi bi-dash"></i> <a href="#">APIs</a></li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="copyright text-center p-2">
+                    &copy; Copyright <strong><span class="color">ArticsGallery</span></strong>. All Rights Reserved
+                </div>
+            </footer><!-- End Footer -->
+        </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+<script src="../Assets/script/profile.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</html>
