@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class ClientProductImpl implements ClientProductService {
     @Autowired
     private ClientProductRepository clientProductRepository;
-
     @Override
     public ClientProduct getClientProductById(Long Id){
         return clientProductRepository.findById(Id).get();

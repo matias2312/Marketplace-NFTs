@@ -22,12 +22,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 public class ProductController {
-
     @Autowired
     ClientService clientService;
     @Autowired
     ProductService productService;
-
+    @GetMapping("/products")
+    public List<ProductDTO> getShop(){
+        return productService.getProducts().stream().filter(product -> product.isSell()).map(product -> new ProductDTO(product)).collect(Collectors.toList());
+    }
     @PostMapping("/clients/current/product/create")
     public ResponseEntity<Object> newProduct(Authentication authentication, @RequestBody NewProductDTO newProductDTO){
         Client client = clientService.findByClientEmail(authentication.getName());
@@ -107,7 +109,6 @@ public class ProductController {
         if(product == null){
             return new ResponseEntity<>("Product does not exist", HttpStatus.FORBIDDEN);
         }
-
         if(!client.getProducts().contains(product)){
             return new ResponseEntity<>("Product does not belong to the customer", HttpStatus.FORBIDDEN);
         }
@@ -118,9 +119,5 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/products")
-    public List<ProductDTO> getShop(){
-           return productService.getProducts().stream().filter(product -> product.isSell()).map(product -> new ProductDTO(product)).collect(Collectors.toList());
-    }
 
 }

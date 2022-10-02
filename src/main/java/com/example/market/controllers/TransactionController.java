@@ -8,6 +8,7 @@ import com.example.market.models.*;
 import com.example.market.repositories.ClientRepository;
 import com.example.market.repositories.ProductRepository;
 import com.example.market.repositories.TransactionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class TransactionController {
-    @Autowired
-    TransactionService transactionService;
-    @Autowired
-    ClientService clientService;
-    @Autowired
-    ProductService productService;
+    private final TransactionService transactionService;
+    private final ClientService clientService;
+    private final ProductService productService;
 
     @Transactional
     @PostMapping("/clients/current/transaction")

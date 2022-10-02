@@ -31,8 +31,13 @@ public class ClientProductController {
     @Autowired
     ClientProductService clientProductService;
     @Autowired
-    private UserServiceImpl userService;
+    UserServiceImpl userService;
 
+    @GetMapping("/clients/current/cart")
+    public Set<ClientProductDTO> getCart (Authentication authentication){
+        Client client = clientService.findByClientEmail(authentication.getName());
+        return client.getClientProducts().stream().filter(clientProduct -> clientProduct.getProduct().isSell()).map(ClientProductDTO::new).collect(Collectors.toSet());
+    }
     @PatchMapping("/clients/current/cart")
     public ResponseEntity<Object> addToCart(Authentication authentication,@RequestParam Long productId){
         Client client = clientService.findByClientEmail(authentication.getName());
@@ -56,11 +61,6 @@ public class ClientProductController {
         return new ResponseEntity<>("Added to cart",HttpStatus.OK);
     }
 
-    @GetMapping("/clients/current/cart")
-    public Set<ClientProductDTO> getCart (Authentication authentication){
-        Client client = clientService.findByClientEmail(authentication.getName());
-        return client.getClientProducts().stream().filter(clientProduct -> clientProduct.getProduct().isSell()).map(ClientProductDTO::new).collect(Collectors.toSet());
-    }
     @PatchMapping("/clients/current/cart/remove")
     public ResponseEntity<Object> deleteItem(Authentication authentication, @RequestParam Long clientProductId){
         Client client = clientService.findByClientEmail(authentication.getName());
@@ -77,19 +77,6 @@ public class ClientProductController {
             clientProduct.setActive(false);
             clientProductService.deleteItem(clientProduct);
             return new ResponseEntity<>("Removed from cart",HttpStatus.OK);
-        }
-    }
-
-    @DeleteMapping("/clients/current/cart/delete")
-    public ResponseEntity<Object> deleteCart(Authentication authentication){
-        Client client = clientService.findByClientEmail(authentication.getName());
-
-        if(client == null){
-            return new ResponseEntity<>("Client does not exist", HttpStatus.FORBIDDEN);
-        }
-        else {
-            userService.clearCart(client);
-            return new ResponseEntity<>("Cart Cleared",HttpStatus.OK);
         }
     }
 
@@ -112,6 +99,18 @@ public class ClientProductController {
             client.addFavorites(productId);
             clientService.saveClient(client);
             return new ResponseEntity<>("Added to favorites", HttpStatus.OK);
+        }
+    }
+    @DeleteMapping("/clients/current/cart/delete")
+    public ResponseEntity<Object> deleteCart(Authentication authentication){
+        Client client = clientService.findByClientEmail(authentication.getName());
+
+        if(client == null){
+            return new ResponseEntity<>("Client does not exist", HttpStatus.FORBIDDEN);
+        }
+        else {
+            userService.clearCart(client);
+            return new ResponseEntity<>("Cart Cleared",HttpStatus.OK);
         }
     }
 }

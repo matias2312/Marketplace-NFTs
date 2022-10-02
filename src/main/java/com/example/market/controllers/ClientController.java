@@ -11,6 +11,7 @@ import com.example.market.models.ClientProduct;
 import com.example.market.models.Sale;
 import com.example.market.repositories.ClientRepository;
 import com.example.market.repositories.SaleRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,42 +28,28 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class ClientController {
-    @Autowired
-    ClientService clientService;
-    @Autowired
-    private SaleRepository saleRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private VerificationEmail verificationEmail;
-
-    @Autowired
-    private ValidatorEmail validatorEmail;
-
-    @Autowired
-    private PDFServiceImpl pdfServiceImpl;
-
-    @Autowired
-    private UserService userService;
+    private final ClientService clientService;
+    private final SaleRepository saleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final VerificationEmail verificationEmail;
+    private final ValidatorEmail validatorEmail;
+    private final PDFServiceImpl pdfServiceImpl;
+    private final UserService userService;
 
     @GetMapping("/clients")
     public Set<ClientDTO> getAllClients() {
-        //return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toSet());
         return  clientService.getClients().stream().map(client -> new ClientDTO(client)).collect(Collectors.toSet());
     }
-
     @GetMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id) {
-       // return clientRepository.findById(id).map(client -> new ClientDTO(client)).orElse(null);
         return new ClientDTO(clientService.getClientById(id));
     }
-
     @GetMapping("/clients/current")
     public ClientDTO getCurrentClient(Authentication auth) {
         try {
             return new ClientDTO(clientService.findByClientEmail(auth.getName()));
-
         } catch (NullPointerException nullPointerException) {
             return null;
         }
@@ -102,6 +89,7 @@ public class ClientController {
         Client client = clientService.getClientById(id);
         client.setVerified(true);
         clientService.saveClient(client);
+       // return new RedirectView("http://localhost:8080/web/Structure/register.html");
         return new RedirectView("https://ecommers-nfts.herokuapp.com/web/Structure/register.html");
     }
 
@@ -122,39 +110,22 @@ public class ClientController {
             userService.clearCart(user);
             return new ResponseEntity<String>("Invoice succesfully sent", HttpStatus.CREATED);
         }
-
         return new ResponseEntity<String>("Something wrong happened", HttpStatus.NOT_FOUND);
-
     }
 
     @PostMapping("/clients/current/sendInvoice")
     public ResponseEntity<String> sendInvoice(Authentication auth, HttpServletResponse response) throws IOException {
         Client user = clientService.findByClientEmail(auth.getName());
-
+        Set<ClientProduct> shoppingBag = user.getClientProducts();
 
         if (user == null) {
             return new ResponseEntity<String>("User not found", HttpStatus.NOT_FOUND);
         }
-
-        Set<ClientProduct> shoppingBag = user.getClientProducts();
-
         ByteArrayOutputStream outPutStream = pdfServiceImpl.generatePDF(response, user, shoppingBag);
         byte[] bytes = outPutStream.toByteArray();
-
         if (userService.sendInvoice(user, bytes)) {
             return new ResponseEntity<String>("Invoice succesfully sent", HttpStatus.CREATED);
         }
-
         return new ResponseEntity<String>("Something wrong happened", HttpStatus.BAD_REQUEST);
-
     }
-
-    /*
-     * @GetMapping("/clients/current/sales")
-     * public Set<SaleDTO> getSales(Authentication auth) {
-     * Client user = clientRepository.findByEmail(auth.getName());
-     * return saleRepository.findAll().stream().filter(sale -> sale.getClientid()==
-     * user.getId()).map(sale -> new SaleDTO(sale)).collect(Collectors.toSet());
-     * }
-     */
 }

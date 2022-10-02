@@ -8,16 +8,11 @@ import java.util.regex.Pattern;
 
 @Service
 public class ValidatorEmail implements Predicate<String>{
-
         @Override
         public boolean test(String email) {
-
             String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
             Pattern pattern = Pattern.compile(regex);
-
             Matcher matcher = pattern.matcher(email);
-
-
             return matcher.matches();
         }
     }

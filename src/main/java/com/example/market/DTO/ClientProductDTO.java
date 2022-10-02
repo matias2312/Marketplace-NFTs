@@ -1,9 +1,12 @@
 package com.example.market.DTO;
 
 import com.example.market.models.ClientProduct;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-
+@Getter
+@NoArgsConstructor
 public class ClientProductDTO {
 
     private Long id;
@@ -14,29 +17,10 @@ public class ClientProductDTO {
 
     private LocalDateTime dateAdd;
 
-    public ClientProductDTO() {
-    }
-
     public ClientProductDTO(ClientProduct clientProduct) {
         this.id = clientProduct.getId();
         this.clientName = clientProduct.getClient().getFirstName();
-        this.product =new ProductDTO(clientProduct.getProduct());
+        this.product = new ProductDTO(clientProduct.getProduct());
         this.dateAdd = clientProduct.getDateAdded();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getClientName() {
-        return clientName;
-    }
-
-    public ProductDTO getProduct() {
-        return product;
-    }
-
-    public LocalDateTime getDateAdd() {
-        return dateAdd;
     }
 }

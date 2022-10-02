@@ -1,15 +1,23 @@
 package com.example.market.models;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class ClientProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -19,47 +27,13 @@ public class ClientProduct {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="product_id")
     private Product product;
-
     private boolean isActive;
-
     private LocalDateTime dateAdd;
-
-    public ClientProduct() {
-    }
-
     public ClientProduct(Client client, Product product) {
         this.client = client;
         this.product = product;
         this.dateAdd = LocalDateTime.now();
         this.isActive = true;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public LocalDateTime getDateAdded() {

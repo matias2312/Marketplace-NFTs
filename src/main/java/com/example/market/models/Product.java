@@ -1,5 +1,6 @@
 package com.example.market.models;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
+    @Setter(AccessLevel.NONE)
     private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,7 +34,6 @@ public class Product {
     private LocalDate creationDate;
     private Boolean active;
     private String image;
-
     private boolean sell;
 
     public Product(Client client, String name, String description, Double price, LocalDate creationDate, Boolean active, String image, boolean sell) {
